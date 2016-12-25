@@ -1,4 +1,5 @@
-{% if all_albums %}	
+{% if all_albums %}
+	<h3>My All Albums</h3>
 	<ul>
 		{% for album in all_albums %}
 		<li><a href="/music/{{ album.id }}/">{{ album.album_title }}</a></li>
