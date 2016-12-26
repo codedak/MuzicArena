@@ -10,3 +10,16 @@ def detail(request, album_id):
     album = get_object_or_404(Album, pk=album_id)
     return render(request, 'music/detail.html', {'album' : album})
 
+def favorite(request, album_id):
+    album = get_object_or_404(Album, pk=album_id)
+    try:
+        song_selected = album.song_set.get(pk=request.POST['song'])
+    except(KeyError, Song.DoesNotExist):
+        return render(request, 'music/detail,html', {
+            'album' : album,
+            'error_message' : "Invalid Song Selected",    
+        })
+    else:
+        song_selected.is_favorite = True
+        song_selected.save()
+        return render(request, 'music/detail.html', {'album': album})
